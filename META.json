@@ -37,7 +37,7 @@
             "File::Spec" : "0",
             "IO::Handle" : "0",
             "IPC::Open3" : "0",
-            "Test::More" : "0"
+            "Test::More" : "0.98"
          }
       }
    },
@@ -53,7 +53,7 @@
          "web" : "https://github.com/sharyanto/perl-Markdown-To-POD"
       }
    },
-   "version" : "0.01",
+   "version" : "0.02",
    "x_Dist_Zilla" : {
       "perl" : {
          "version" : "5.018001"
@@ -324,6 +324,17 @@
             "class" : "Dist::Zilla::Plugin::Test::Rinci",
             "name" : "@Author::SHARYANTO/Test::Rinci",
             "version" : "0.01"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::Prereqs",
+            "config" : {
+               "Dist::Zilla::Plugin::Prereqs" : {
+                  "phase" : "test",
+                  "type" : "requires"
+               }
+            },
+            "name" : "TestRequires",
+            "version" : "5.015"
          },
          {
             "class" : "Dist::Zilla::Plugin::Prereqs",

@@ -2,12 +2,12 @@ NAME
     Markdown::To::POD - Convert Markdown syntax to POD
 
 VERSION
-    This document describes version 0.01 of Markdown::To::POD (from Perl
-    distribution Markdown-To-POD), released on 2014-07-20.
+    This document describes version 0.02 of Markdown::To::POD (from Perl
+    distribution Markdown-To-POD), released on 2014-07-21.
 
 SYNOPSIS
-        use Markdown::To::POD 'markdown';
-        my $pod = markdown($text);
+        use Markdown::To::POD 'markdown_to_pod';
+        my $pod = markdown_to_pod($text);
 
 DESCRIPTION
     Markdown::To::POD notes: Markdown::To::POD is a markdown-to-POD
@@ -16,7 +16,7 @@ DESCRIPTION
     POD instead of HTML. I hacked it because I want an alternative to
     Markdown::Pod 0.005 which is too startup-heavy and has a couple of
     annoying bugs, like converting "an_identifier and another_identifier" to
-    "an*identifier and another*identifier". The rest of the documentation is
+    "an<identifier and another>identifier". The rest of the documentation is
     Text::Markdown's.
 
     Markdown is a text-to-HTML filter; it translates an easy-to-read /
@@ -96,7 +96,7 @@ METHODS
     A simple constructor, see the SYNTAX and OPTIONS sections for more
     information.
 
-  markdown
+  markdown_to_pod
     The main function as far as the outside world is concerned. See the
     SYNOPSIS for details on use.
 

@@ -1,7 +1,7 @@
 package Markdown::To::POD;
 
-our $DATE = '2014-07-20'; # DATE
-our $VERSION = '0.01'; # VERSION
+our $DATE = '2014-07-21'; # DATE
+our $VERSION = '0.02'; # VERSION
 # ABSTRACT: Convert Markdown syntax to POD
 
 use 5.010001;
@@ -14,7 +14,7 @@ use Encode      qw();
 use Carp        qw(croak);
 use base        'Exporter';
 
-our @EXPORT_OK = qw(markdown);
+our @EXPORT_OK = qw(markdown_to_pod);
 
 
 # Regex to match balanced [brackets]. See Friedl's
@@ -64,7 +64,7 @@ sub new {
 }
 
 
-sub markdown {
+sub markdown_to_pod {
     my ( $self, $text, $options ) = @_;
 
     # Detect functional mode, and create an instance for this run
@@ -72,7 +72,7 @@ sub markdown {
         if ( $self ne __PACKAGE__ ) {
             my $ob = __PACKAGE__->new();
                                 # $self is text, $text is options
-            return $ob->markdown($self, $text);
+            return $ob->markdown_to_pod($self, $text);
         }
         else {
             croak('Calling ' . $self . '->markdown (as a class method) is not supported.');
@@ -1523,12 +1523,12 @@ Markdown::To::POD - Convert Markdown syntax to POD
 
 =head1 VERSION
 
-This document describes version 0.01 of Markdown::To::POD (from Perl distribution Markdown-To-POD), released on 2014-07-20.
+This document describes version 0.02 of Markdown::To::POD (from Perl distribution Markdown-To-POD), released on 2014-07-21.
 
 =head1 SYNOPSIS
 
-    use Markdown::To::POD 'markdown';
-    my $pod = markdown($text);
+    use Markdown::To::POD 'markdown_to_pod';
+    my $pod = markdown_to_pod($text);
 
 =head1 DESCRIPTION
 
@@ -1537,8 +1537,8 @@ Currently it's implemented as a quick-and-dirty hack of forking
 L<Text::Markdown> 1.000031 then modifying just enough to produce POD instead of
 HTML. I hacked it because I want an alternative to L<Markdown::Pod> 0.005 which
 is too startup-heavy and has a couple of annoying bugs, like converting
-C<an_identifier and another_identifier> to C<< anI<identifier and
-another>identifier >>. The rest of the documentation is Text::Markdown's.
+C<an_identifier and another_identifier> to C<< anE<lt>identifier and
+anotherE<gt>identifier >>. The rest of the documentation is Text::Markdown's.
 
 Markdown is a text-to-HTML filter; it translates an easy-to-read /
 easy-to-write structured text format into HTML. Markdown's text format
@@ -1625,7 +1625,7 @@ numbering.  This will let you pick up where you left off by writing:
 
 A simple constructor, see the SYNTAX and OPTIONS sections for more information.
 
-=head2 markdown
+=head2 markdown_to_pod
 
 The main function as far as the outside world is concerned. See the SYNOPSIS
 for details on use.

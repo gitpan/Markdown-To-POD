@@ -1,7 +1,7 @@
 package Markdown::To::POD;
 
-our $DATE = '2014-07-21'; # DATE
-our $VERSION = '0.02'; # VERSION
+our $DATE = '2014-07-22'; # DATE
+our $VERSION = '0.03'; # VERSION
 # ABSTRACT: Convert Markdown syntax to POD
 
 use 5.010001;
@@ -1141,21 +1141,22 @@ sub _EncodeCode {
 
     # Encode all ampersands; HTML entities are not
     # entities within a Markdown code span.
-    s/&/&amp;/g;
+    #s/&/&amp;/g;
 
     # Encode $'s, but only if we're running under Blosxom.
     # (Blosxom interpolates Perl variables in article bodies.)
     {
         no warnings 'once';
         if (defined($blosxom::version)) {
-            s/\$/&#036;/g;
+            #s/\$/&#036;/g;
         }
     }
 
 
     # Do the angle bracket song and dance:
-    s! <  !&lt;!gx;
-    s! >  !&gt;!gx;
+    #s! <  !&lt;!gx;
+    #s! >  !&gt;!gx;
+    s! ([<>])  !$1 eq '<' ? 'E<lt>' : 'E<gt>'!egx;
 
     # Now, escape characters that are magic in Markdown:
     s! \* !$g_escape_table{'*'}!ogx;
@@ -1291,6 +1292,8 @@ sub _EncodeAmpsAndAngles {
 
     my ($self, $text) = @_;
     return '' if (!defined $text or !length $text);
+
+    return $text;
 
     # Ampersand-encoding based entirely on Nat Irons's Amputator MT plugin:
     #   http://bumppo.net/projects/amputator/
@@ -1523,7 +1526,7 @@ Markdown::To::POD - Convert Markdown syntax to POD
 
 =head1 VERSION
 
-This document describes version 0.02 of Markdown::To::POD (from Perl distribution Markdown-To-POD), released on 2014-07-21.
+This document describes version 0.03 of Markdown::To::POD (from Perl distribution Markdown-To-POD), released on 2014-07-22.
 
 =head1 SYNOPSIS
 
@@ -1537,7 +1540,7 @@ Currently it's implemented as a quick-and-dirty hack of forking
 L<Text::Markdown> 1.000031 then modifying just enough to produce POD instead of
 HTML. I hacked it because I want an alternative to L<Markdown::Pod> 0.005 which
 is too startup-heavy and has a couple of annoying bugs, like converting
-C<an_identifier and another_identifier> to C<< anE<lt>identifier and
+C<an_identifier and another_identifier> to C<< anIE<lt>identifier and
 anotherE<gt>identifier >>. The rest of the documentation is Text::Markdown's.
 
 Markdown is a text-to-HTML filter; it translates an easy-to-read /

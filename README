@@ -2,8 +2,8 @@ NAME
     Markdown::To::POD - Convert Markdown syntax to POD
 
 VERSION
-    This document describes version 0.03 of Markdown::To::POD (from Perl
-    distribution Markdown-To-POD), released on 2014-07-22.
+    This document describes version 0.04 of Markdown::To::POD (from Perl
+    distribution Markdown-To-POD), released on 2014-07-28.
 
 SYNOPSIS
         use Markdown::To::POD 'markdown_to_pod';

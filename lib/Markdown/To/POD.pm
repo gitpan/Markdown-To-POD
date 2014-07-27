@@ -1,7 +1,7 @@
 package Markdown::To::POD;
 
-our $DATE = '2014-07-22'; # DATE
-our $VERSION = '0.03'; # VERSION
+our $DATE = '2014-07-28'; # DATE
+our $VERSION = '0.04'; # VERSION
 # ABSTRACT: Convert Markdown syntax to POD
 
 use 5.010001;
@@ -1067,7 +1067,7 @@ sub _DoCodeBlocks {
         my $codeblock = $1;
         my $result;  # return value
 
-        $codeblock = $self->_EncodeCode($self->_Outdent($codeblock));
+        $codeblock = $self->_EncodeCode($self->_Outdent($codeblock), 0);
         $codeblock = $self->_Detab($codeblock);
         $codeblock =~ s/\A\n+//;  # trim leading newlines
         $codeblock =~ s/\n+\z//;  # trim trailing newlines
@@ -1138,6 +1138,7 @@ sub _EncodeCode {
 #
     my $self = shift;
     local $_ = shift;
+    my $do_angle_bracket = shift // 1;
 
     # Encode all ampersands; HTML entities are not
     # entities within a Markdown code span.
@@ -1156,7 +1157,7 @@ sub _EncodeCode {
     # Do the angle bracket song and dance:
     #s! <  !&lt;!gx;
     #s! >  !&gt;!gx;
-    s! ([<>])  !$1 eq '<' ? 'E<lt>' : 'E<gt>'!egx;
+    s! ([<>])  !$1 eq '<' ? 'E<lt>' : 'E<gt>'!egx if $do_angle_bracket;
 
     # Now, escape characters that are magic in Markdown:
     s! \* !$g_escape_table{'*'}!ogx;
@@ -1526,7 +1527,7 @@ Markdown::To::POD - Convert Markdown syntax to POD
 
 =head1 VERSION
 
-This document describes version 0.03 of Markdown::To::POD (from Perl distribution Markdown-To-POD), released on 2014-07-22.
+This document describes version 0.04 of Markdown::To::POD (from Perl distribution Markdown-To-POD), released on 2014-07-28.
 
 =head1 SYNOPSIS
 
